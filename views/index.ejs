@@ -1,0 +1,43 @@
+<%- include('./partials/head.ejs') %>
+
+<%- include('./partials/nav.ejs') %>
+
+<div class="container mt-5">
+    <h2 class="mb-4">All Blogs</h2>
+    <% if (blogs.length > 0) { %>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Snippet</th>
+                    <th>Body</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% blogs.forEach(blog => { %>
+                    <tr>
+                        <td><%= blog.title %></td>
+                        <td><%= blog.snippet %></td>
+                        <td><%= blog.body %></td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                <!-- Update button -->
+                                <a href="/blogs/<%= blog.id %>/edit" class="btn btn-sm btn-primary me-2">Update</a>
+                                <!-- Delete button -->
+                                <form action="/blogs/<%= blog.id %>" method="POST" style="display: inline;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>                                
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <h3>No blogs found!</h3>
+    <% } %>
+</div>
+
+<%- include('./partials/footer.ejs') %>
